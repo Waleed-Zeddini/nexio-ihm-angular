@@ -1,4 +1,4 @@
-import { ICarnetCommande } from './carnet-commande.model';
+import { ILigneCommande } from './ligne-commande.model';
 import { ICategorie } from './categorie.model';
 
 export interface IProduit {
@@ -9,7 +9,7 @@ export interface IProduit {
   caracteristiques?: string;
   prixUnitaire?: number;
   quantite?: number;
-  carnets?: ICarnetCommande[];
+  Lignes?: ILigneCommande[];
   categorie?: ICategorie;
 }
 
@@ -22,7 +22,7 @@ export class Produit implements IProduit {
     public caracteristiques?: string,
     public prixUnitaire?: number,
     public quantite?: number,
-    public carnets?: ICarnetCommande[],
+    public Lignes?: ILigneCommande[],
     public categorie?: ICategorie
   ) {}
 }

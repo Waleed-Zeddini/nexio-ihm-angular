@@ -14,7 +14,6 @@ export interface IClient {
   fax?: string;
   gsm?: string;
   email?: string;
-  commandes?: ICommande[];
 }
 
 export class Client implements IClient {
@@ -31,6 +30,5 @@ export class Client implements IClient {
     public fax?: string,
     public gsm?: string,
     public email?: string,
-    public commandes?: ICommande[]
   ) {}
 }

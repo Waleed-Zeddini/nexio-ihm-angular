@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ICommande } from '../model/commande.model';
+import { IOrder } from '../model/order.model';
 import { CommandeService } from '../services/commande.service';
 
 @Component({
@@ -9,12 +9,12 @@ import { CommandeService } from '../services/commande.service';
 })
 export class CommandesComponent implements OnInit {
 ;
-  commandes: ICommande[]
+  orders: IOrder[]
   constructor(private commandeService: CommandeService) { }
 
   ngOnInit(): void {
     this.commandeService.query().subscribe(data => {
-      this.commandes = data.body;
+      this.orders = data.body;
     }, error => {
       console.log(error);
     });

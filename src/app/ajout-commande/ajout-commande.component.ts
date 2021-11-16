@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
-import { CarnetCommande, ICarnetCommande } from '../model/carnet-commande.model';
+import { LigneCommande, ILigneCommande } from '../model/ligne-commande.model';
 import { Commande, ICommande } from '../model/commande.model';
+import { Order, IOrder } from '../model/order.model';
+
 import { IProduit } from '../model/produit.model';
 import { CommandeService } from '../services/commande.service';
 import { ProduitService } from '../services/produit.service';
@@ -14,8 +16,9 @@ import { ProduitService } from '../services/produit.service';
 })
 export class AjoutCommandeComponent implements OnInit {
 
+  order : IOrder;
   commande : ICommande;
-  carnetCommandeTemp: ICarnetCommande;
+  lignesTemp: ILigneCommande;
   modeUpdate: boolean;
   indexUpdate: number;
   produits: IProduit[];
@@ -25,11 +28,12 @@ export class AjoutCommandeComponent implements OnInit {
 
   ngOnInit(): void {
     this.modeUpdate = false;
-    this.commande = new Commande();
-    this.carnetCommandeTemp = new CarnetCommande();
-    this.commande.date = moment();
-    this.commande.carnets = [];
-    this.commande.prixTotal = 0;
+    this.order = new Order();
+    this.order.commande = new Commande();
+    this.lignesTemp = new LigneCommande();
+    this.order.commande.date = moment();
+    this.order.ligneCommande = [];
+    this.order.commande.prixTotal = 0;
     this.produitService.query().subscribe(data => {
       this.produits = data.body;
     }, error => {
@@ -38,41 +42,41 @@ export class AjoutCommandeComponent implements OnInit {
   }
   ajouterLigneCommande() {
     
-    this.carnetCommandeTemp.prixTotal = this.carnetCommandeTemp.produit.prixUnitaire * this.carnetCommandeTemp.qte;
-    this.commande.prixTotal = this.commande.prixTotal + this.carnetCommandeTemp.prixTotal; 
-    let currentProduit = this.carnetCommandeTemp.produit;
-    this.commande.carnets.push(this.carnetCommandeTemp);
-    this.carnetCommandeTemp = new CarnetCommande();
-    this.carnetCommandeTemp.produit = currentProduit;
+    this.lignesTemp.prixTotal = this.lignesTemp.produit.prixUnitaire * this.lignesTemp.qte;
+    this.order.commande.prixTotal = this.order.commande.prixTotal + this.lignesTemp.prixTotal; 
+    let currentProduit = this.lignesTemp.produit;
+    this.order.ligneCommande.push(this.lignesTemp);
+    this.lignesTemp = new LigneCommande();
+    this.lignesTemp.produit = currentProduit;
   }
   supprimerLigneCommande(index: any) {
-    this.commande.prixTotal = this.commande.prixTotal - this.commande.carnets[index].prixTotal;
-    this.commande.carnets.splice(index, index + 1);
+    this.order.commande.prixTotal = this.order.commande.prixTotal - this.order.ligneCommande[index].prixTotal;
+    this.order.ligneCommande.splice(index, index + 1);
   }
   editerLigneCommande(index: any) {
 
     this.modeUpdate = true;
     this.indexUpdate = index;
-    this.carnetCommandeTemp.qte = this.commande.carnets[index].qte;
-    this.carnetCommandeTemp.prixUnitaire = this.commande.carnets[index].prixUnitaire;
-    this.carnetCommandeTemp.produit = this.commande.carnets[index].produit;
+    this.lignesTemp.qte = this.order.ligneCommande[index].qte;
+    this.lignesTemp.prixUnitaire = this.order.ligneCommande[index].prixUnitaire;
+    this.lignesTemp.produit = this.order.ligneCommande[index].produit;
   }
   updateLigneCommande() {
-    this.commande.prixTotal = this.commande.prixTotal - this.commande.carnets[this.indexUpdate].prixTotal;
-    this.carnetCommandeTemp.prixTotal = this.carnetCommandeTemp.qte * this.carnetCommandeTemp.produit.prixUnitaire;
-    this.commande.prixTotal = this.commande.prixTotal + this.carnetCommandeTemp.prixTotal;
+    this.order.commande.prixTotal = this.order.commande.prixTotal - this.order.ligneCommande[this.indexUpdate].prixTotal;
+    this.lignesTemp.prixTotal = this.lignesTemp.qte * this.lignesTemp.produit.prixUnitaire;
+    this.order.commande.prixTotal = this.order.commande.prixTotal + this.lignesTemp.prixTotal;
 
-    this.commande.carnets[this.indexUpdate] = this.carnetCommandeTemp ;
-    this.carnetCommandeTemp = new CarnetCommande();
+    this.order.ligneCommande[this.indexUpdate] = this.lignesTemp ;
+    this.lignesTemp = new LigneCommande();
     this.modeUpdate = false;
 
   }
   affecterProduit(event) {
-    this.carnetCommandeTemp.produit = event
+    this.lignesTemp.produit = event
   }
   passerLaCommande() {
-    this.commandeService.create(this.commande).subscribe(data => {
-      this.commande = data.body;
+    this.commandeService.create(this.order).subscribe(data => {
+      this.order = data.body;
       this.router.navigateByUrl('/mes-achats');
     }, error => {
       console.log(error)

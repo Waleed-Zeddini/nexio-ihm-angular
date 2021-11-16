@@ -1,6 +1,5 @@
 import { Moment } from 'moment';
-import { ICarnetCommande } from './carnet-commande.model';
-import { IClient } from './client.model';
+
 
 export interface ICommande {
   id?: number;
@@ -8,8 +7,7 @@ export interface ICommande {
   date?: Moment;
   prixTotal?: number;
   etat?: number;
-  carnets?: ICarnetCommande[];
-  client?: IClient;
+  clientId?: number
 }
 
 export class Commande implements ICommande {
@@ -18,8 +16,7 @@ export class Commande implements ICommande {
     public numero?: string,
     public date?: Moment,
     public prixTotal?: number,
-    public etat?: number,
-    public carnets?: ICarnetCommande[],
-    public client?: IClient
+    public clientId?: number,
+    public etat?: number
   ) {}
 }

@@ -1,24 +1,26 @@
 import { IProduit } from './produit.model';
-import { ICommande } from './commande.model';
 
-export interface ICarnetCommande {
+export interface ILigneCommande {
   id?: number;
   qte?: number;
   prixUnitaire?: number;
   prixTotal?: number;
   etat?: number;
-  produit?: IProduit;
-  commande?: ICommande;
+  produitId?: number;
+  commandeId?: number;
+  produit?: IProduit
+  
 }
 
-export class CarnetCommande implements ICarnetCommande {
+export class LigneCommande implements ILigneCommande {
   constructor(
     public id?: number,
     public qte?: number,
     public prixUnitaire?: number,
     public prixTotal?: number,
+    public produitId?: number,
     public etat?: number,
-    public produit?: IProduit,
-    public commande?: ICommande
+    public commandeId?: number,
+    public produit?: IProduit
   ) {}
 }

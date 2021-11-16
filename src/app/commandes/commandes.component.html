@@ -5,20 +5,20 @@
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">Numero</th>
+      <th scope="col">Numéro</th>
       <th scope="col">Date</th>
       <th scope="col">Montant total</th>
-      <th scope="col">Details</th>
+      <th scope="col">Détail</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let commande of commandes">
-      <th scope="row">{{commande.numero}}</th>
-      <td>{{commande.date}}</td>
-      <td>{{commande.prixTotal}}</td>
+    <tr *ngFor="let order of orders">
+      <th scope="row">{{order.commande.numero}}</th>
+      <td>{{order.commande.date}}</td>
+      <td>{{order.commande.prixTotal}}</td>
       <td>
-        <ul *ngIf="commande.carnets && commande.carnets.length > 0"class="list-group">
-          <li *ngFor="let c of commande.carnets" class="list-group-item">{{c.produit.code}} ({{c.qte}} article(s)) : montant {{c.prixTotal}}</li>
+        <ul *ngIf="order.ligneCommande && order.ligneCommande.length > 0"class="list-group">
+          <li *ngFor="let c of order.ligneCommande" class="list-group-item">{{c.produit.code}} ({{c.qte}} article(s)) : montant {{c.prixTotal}}</li>
         </ul>
       </td>
     </tr>

@@ -3,23 +3,23 @@
 <br>
 <div class="card col-md-10 offset-md-1">
     <div class="card-header">
-        Nouvelle commande
+        Nouvelle Commande
 
         
     </div>
     <div class="card-body">
         <div class="row">
             <div class="col-md-4">
-                <label for="field_numero"  class="form-label">Numero</label>
-                <input [(ngModel)]="commande.numero" type="text" class="form-control">
+                <label for="field_numero"  class="form-label">Numéro</label>
+                <input [(ngModel)]="order.commande.numero" type="text" class="form-control">
             </div>
             <div class="col-md-4">
                 <label for="field_date"  class="form-label">Date</label>
-                <input [(ngModel)]="commande.date" type="text" readonly class="form-control">
+                <input [(ngModel)]="order.commande.date" type="text" readonly class="form-control">
             </div>
             <div class="col-md-4">
                 <label for="field_montant"  class="form-label">Montant</label>
-                <input [(ngModel)]="commande.prixTotal" type="text" readonly class="form-control">
+                <input [(ngModel)]="order.commande.prixTotal" type="text" readonly class="form-control">
               </div>
 
         </div>
@@ -35,27 +35,27 @@
                   </div>
                   <div class="col-md-4">
                     <label for="exampleFormControlInput2" class="form-label">Quantité</label>
-                    <input [(ngModel)]="carnetCommandeTemp.qte"  type="text" class="form-control">
+                    <input [(ngModel)]="lignesTemp.qte"  type="text" class="form-control">
                   </div>
                   <div class="col-md-2 align-self-end">
                     
-                    <button [disabled]= "carnetCommandeTemp.qte === undefined || carnetCommandeTemp.produit === undefined" *ngIf="!modeUpdate" class="btn btn-success" type="button" (click)="ajouterLigneCommande()">Ajouter</button>
-                    <button [disabled]= "carnetCommandeTemp.qte === undefined || carnetCommandeTemp.produit === undefined" *ngIf="modeUpdate" class="btn btn-success" type="button" (click)="updateLigneCommande()">Modifier</button>
+                    <button [disabled]= "lignesTemp.qte === undefined || lignesTemp.produit === undefined" *ngIf="!modeUpdate" class="btn btn-success" type="button" (click)="ajouterLigneCommande()">Ajouter</button>
+                    <button [disabled]= "lignesTemp.qte === undefined || lignesTemp.produit === undefined" *ngIf="modeUpdate" class="btn btn-success" type="button" (click)="updateLigneCommande()">Modifier</button>
                   </div>
                   
             </div>
              
-            <table *ngIf="commande.carnets" class="table">
+            <table *ngIf="order.ligneCommande" class="table">
                 <thead>
                     <tr>
                         <th>Produit</th>
                         <th>Prix unitaire</th>
-                        <th>Quantite</th>
+                        <th>Quantité</th>
                         <th>Prix</th>
                         <th></th>
                     </tr>
                 </thead>
-                <tbody *ngFor="let lc of commande.carnets; let i = index">
+                <tbody *ngFor="let lc of order.ligneCommande; let i = index">
                    
                     <tr>
                         <td>
