@@ -1,0 +1,100 @@
+<br>
+<br>
+<br>
+<div class="card col-md-10 offset-md-1">
+    <div class="card-header">
+        Nouvelle commande
+
+        
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <label for="field_numero"  class="form-label">Numero</label>
+                <input [(ngModel)]="commande.numero" type="text" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <label for="field_date"  class="form-label">Date</label>
+                <input [(ngModel)]="commande.date" type="text" readonly class="form-control">
+            </div>
+            <div class="col-md-4">
+                <label for="field_montant"  class="form-label">Montant</label>
+                <input [(ngModel)]="commande.prixTotal" type="text" readonly class="form-control">
+              </div>
+
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="field_produit" class="form-label">Produit</label>
+                    <select [ngModel]="produits" (ngModelChange)="affecterProduit($event)" class="form-control">
+                        <option *ngFor="let p of produits" [ngValue]="p">
+                            {{p.marque}}-{{p.modele}}
+                        </option>
+                    </select>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="exampleFormControlInput2" class="form-label">Quantité</label>
+                    <input [(ngModel)]="carnetCommandeTemp.qte"  type="text" class="form-control">
+                  </div>
+                  <div class="col-md-2 align-self-end">
+                    
+                    <button [disabled]= "carnetCommandeTemp.qte === undefined || carnetCommandeTemp.produit === undefined" *ngIf="!modeUpdate" class="btn btn-success" type="button" (click)="ajouterLigneCommande()">Ajouter</button>
+                    <button [disabled]= "carnetCommandeTemp.qte === undefined || carnetCommandeTemp.produit === undefined" *ngIf="modeUpdate" class="btn btn-success" type="button" (click)="updateLigneCommande()">Modifier</button>
+                  </div>
+                  
+            </div>
+             
+            <table *ngIf="commande.carnets" class="table">
+                <thead>
+                    <tr>
+                        <th>Produit</th>
+                        <th>Prix unitaire</th>
+                        <th>Quantite</th>
+                        <th>Prix</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let lc of commande.carnets; let i = index">
+                   
+                    <tr>
+                        <td>
+                            {{lc.produit.code}}
+                        </td>
+                        <td>
+                            {{lc.produit.prixUnitaire}}
+                        </td>
+                        <td>
+                           {{lc.qte}} 
+                        </td>
+                        <td>
+                            {{lc.prixTotal}}
+                        </td>
+                        <td>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button class="btn btn-sm btn-danger" (click)="supprimerLigneCommande(i)">Supprimer</button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button class="btn btn-sm btn-info text-white" (click)="editerLigneCommande(i)">Editer</button>
+                                </div>
+                                
+                                
+    
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>  
+    </div>        
+    <div>          
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button class="btn btn-default me-md-2" type="button" (click)="annuler()">Annuler</button>
+        <button class="btn btn-primary" type="button" (click)="passerLaCommande()">Commander</button>
+        </div>
+    </div>
+    
+    
+
+</div>

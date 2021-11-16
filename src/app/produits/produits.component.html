@@ -1,0 +1,34 @@
+<br>
+<div class="d-flex justify-content-end">
+  <button type="button" class="btn btn-outline-primary" routerLink="/ajouter-produit">Ajouter produit</button>
+</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">CODE</th>
+      <th scope="col">Marque</th>
+      <th scope="col">Modèle</th>
+      <th scope="col">Caracteristiques</th>
+      <th scope="col">Prix Unitaire</th>
+      <th scope="col">Quantite</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody *ngIf="produits && produits.length > 0">
+    <tr *ngFor="let produit of produits">
+      <th scope="row">{{produit.code}}</th>     
+      <td>{{produit.marque}}</td>
+      <td>{{produit.modele}}</td>
+      <td>{{produit.caracteristiques}}</td>
+      <td>{{produit.prixUnitaire}}</td>
+      <td>{{produit.quantite}}</td>
+      <td>
+        <button class="btn btn-sm btn-primary" routerLink="/editer-produit/{{produit.id}}">Editer</button>
+      </td>
+      
+      <td>
+
+      </td>
+    </tr>
+  </tbody>
+</table>

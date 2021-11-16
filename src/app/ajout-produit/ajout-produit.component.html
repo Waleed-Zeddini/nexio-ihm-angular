@@ -1,0 +1,77 @@
+<br>
+<br>
+<br>
+<div class="card col-md-12">
+    <div class="card-header">
+        <span>Ajout Produit</span>
+    </div>
+
+   
+    <div class="card-body">
+          <div class="row">
+            <div class="mb-3 col-md-6">
+              <label for="code" class="form-label">Code</label>
+              <input type="text" [(ngModel)]="produit.code" class="form-control">
+            </div>
+            <div class="mb-3 col-md-6">
+              <label for="marque" class="form-label">Marque</label>
+              <input type="text" [(ngModel)]="produit.marque" class="form-control">
+            </div>
+          </div>
+          <div class="row">
+            <div class="mb-3 col-md-6">
+              <label for="modele" class="form-label">Modèle</label>
+              <input type="text" [(ngModel)]="produit.modele" class="form-control">
+            </div>
+            <div class="mb-3 col-md-6">
+              <label class="form-control-label" for="field_categorie">Categorie</label>
+                <select [ngModel]="categories" class="form-control"
+                    (ngModelChange)="affecterCategorie($event)">
+                    <option *ngFor=" let c of categories" [ngValue]="c">
+                        {{c.libelle}}
+                    </option>
+                </select>         
+            </div>
+            
+          </div>
+            
+          
+          <div class="row">
+            
+            <div class="mb-3 col-md-6">
+              <label for="prixUnitaire" class="form-label">Prix unitaire</label>
+              <input type="number" [(ngModel)]="produit.prixUnitaire" class="form-control">
+            </div>
+            <div class="mb-3 col-md-6">
+              <label for="quantite" class="form-label">Quantité en stock</label>
+              <input type="number" [(ngModel)]="produit.quantite" class="form-control">
+            </div>
+            
+
+          </div>
+          <div class="row">
+            <div class="mb-3">
+              <label for="caracteristiques" class="form-label">Caractèristique</label>
+              <input type="text" [(ngModel)]="produit.caracteristiques" class="form-control">
+            </div>
+
+          </div>
+          <hr>
+          
+          
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button class="btn btn-default me-md-2" type="button" (click)="annuler()">Annuler</button>
+            <button [disabled]=  "produit.code === undefined ||
+                                  produit.marque === undefined ||
+                                  produit.modele === undefined ||
+                                  produit.categorie === undefined ||
+                                  produit.prixUnitaire === undefined ||
+                                  produit.quantite === undefined ||
+                                  produit.caracteristiques === undefined"
+            class="btn btn-primary" type="button" (click)="ajouterProduit()">Ajouter</button>
+          </div>
+    </div>
+    
+    
+
+</div>
