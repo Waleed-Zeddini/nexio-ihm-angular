@@ -35,19 +35,19 @@ export class EditProduitComponent implements OnInit {
   
 
   annuler(): void {
-    this.router.navigateByUrl('/stocks');
+    this.router.navigateByUrl('/stoks');
   }
 
   updateProduit(): void {
     this.produitService.update(this.produit).subscribe(data => {
 
       this.produit = data.body;
-      this.router.navigateByUrl('/stocks');
+      this.router.navigateByUrl('/stoks');
     }, error => {
       console.log(error);
     })
   }
-
+  
   affecterCategorie(event: any) {
     this.produit.categorie = event;
   }
