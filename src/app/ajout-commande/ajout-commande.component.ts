@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import { LigneCommande, ILigneCommande } from '../model/ligne-commande.model';
 import { Commande, ICommande } from '../model/commande.model';
 import { Order, IOrder } from '../model/order.model';
+import { Client, IClient } from '../model/client.model';
 
 import { IProduit } from '../model/produit.model';
 import { CommandeService } from '../services/commande.service';
@@ -17,6 +18,7 @@ import { ProduitService } from '../services/produit.service';
 export class AjoutCommandeComponent implements OnInit {
 
   order : IOrder;
+  Client : IClient;
   commande : ICommande;
   lignesTemp: ILigneCommande;
   modeUpdate: boolean;
@@ -29,11 +31,14 @@ export class AjoutCommandeComponent implements OnInit {
   ngOnInit(): void {
     this.modeUpdate = false;
     this.order = new Order();
+    this.order.client = new Client();
     this.order.commande = new Commande();
     this.lignesTemp = new LigneCommande();
     this.order.commande.date = moment();
     this.order.ligneCommande = [];
     this.order.commande.prixTotal = 0;
+    this.order.client.id = 1; 
+    this.order.commande.clientId = 1;
     this.produitService.query().subscribe(data => {
       this.produits = data.body;
     }, error => {
