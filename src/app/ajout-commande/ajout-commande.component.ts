@@ -78,7 +78,7 @@ export class AjoutCommandeComponent implements OnInit {
 
   }
   initAClient() {
-    this.order.client.id = 1; 
+    this.order.client.id = 57; // just for test, getting an exited client from DB
     this.order.client.code = ""; 
     this.order.client.codePostal = 1; 
     this.order.client.adresse = ""; 
