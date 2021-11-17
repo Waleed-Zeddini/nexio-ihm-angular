@@ -36,8 +36,10 @@ export class AjoutCommandeComponent implements OnInit {
     this.lignesTemp = new LigneCommande();
     this.order.commande.date = moment();
     this.order.ligneCommande = [];
+    this.order.commande.clientId = 1;
     this.order.commande.prixTotal = 0;
-    this.initClient();
+    this.order.commande.etat = 1;
+    this.initAClient();
     this.produitService.query().subscribe(data => {
       this.produits = data.body;
     }, error => {
@@ -75,7 +77,7 @@ export class AjoutCommandeComponent implements OnInit {
     this.modeUpdate = false;
 
   }
-  initClient(){
+  initAClient() {
     this.order.client.id = 1; 
     this.order.client.code = ""; 
     this.order.client.codePostal = 1; 
