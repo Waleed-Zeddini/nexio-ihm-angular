@@ -11,13 +11,17 @@ import { ProduitService } from '../services/produit.service';
   styleUrls: ['./edit-produit.component.css']
 })
 export class EditProduitComponent implements OnInit {
+
   id_produit: number;
   categories: ICategorie[];
   produit: IProduit;
+
   constructor(private produitService: ProduitService, private categorieService: CategorieService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+
     this.id_produit = this.activatedRoute.snapshot.params['id_produit'];
+
     this.produitService.find(this.id_produit).subscribe(data => {
       this.produit = data.body;
     });
@@ -31,17 +35,19 @@ export class EditProduitComponent implements OnInit {
   
 
   annuler(): void {
-    this.router.navigateByUrl('/stoks');
+    this.router.navigateByUrl('/stocks');
   }
+
   updateProduit(): void {
     this.produitService.update(this.produit).subscribe(data => {
 
       this.produit = data.body;
-      this.router.navigateByUrl('/stoks');
+      this.router.navigateByUrl('/stocks');
     }, error => {
       console.log(error);
     })
   }
+
   affecterCategorie(event: any) {
     this.produit.categorie = event;
   }

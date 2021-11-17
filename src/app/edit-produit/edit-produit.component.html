@@ -2,77 +2,185 @@
 <br>
 <br>
 <div class="card col-md-12">
-    <div class="card-header">
+
+      <div class="card-header">
         <span>Editer Produit</span>
-    </div>
+      </div>
 
-   
-    <div class="card-body">
-          <div class="row">
-            <div class="mb-3 col-md-6">
-              <label for="code" class="form-label">Code</label>
-              <input type="text" [(ngModel)]="produit.code" class="form-control">
-            </div>
-            <div class="mb-3 col-md-6">
-              <label for="marque" class="form-label">Marque</label>
-              <input type="text" [(ngModel)]="produit.marque" class="form-control">
-            </div>
-          </div>
-          <div class="row">
-            <div class="mb-3 col-md-6">
-              <label for="modele" class="form-label">Modèle</label>
-              <input type="text" [(ngModel)]="produit.modele" class="form-control">
-            </div>
-            <div class="mb-3 col-md-6">
-              <label class="form-control-label" for="field_categorie">Categorie</label>
-                <select [(ngModel)]="produit.categorie" class="form-control"
-                    (ngModelChange)="affecterCategorie($event)"
-                    
-                    >
-                    <option *ngFor=" let c of categories" [ngValue]="c">
-                        {{c.libelle}}
-                    </option>
-                </select>         
-            </div>
-            
-          </div>
-            
-          
-          <div class="row">
-            
-            <div class="mb-3 col-md-6">
-              <label for="prixUnitaire" class="form-label">Prix unitaire</label>
-              <input type="number" [(ngModel)]="produit.prixUnitaire" class="form-control">
-            </div>
-            <div class="mb-3 col-md-6">
-              <label for="quantite" class="form-label">Quantité en stock</label>
-              <input type="number" [(ngModel)]="produit.quantite" class="form-control">
-            </div>
-            
 
-          </div>
-          <div class="row">
-            <div class="mb-3">
-              <label for="caracteristiques" class="form-label">Caractèristique</label>
-              <input type="text" [(ngModel)]="produit.caracteristiques" class="form-control">
-            </div>
+      <div class="card-body">
 
-          </div>
-          <hr>
-                
-          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button class="btn btn-default me-md-2" type="button" (click)="annuler()">Annuler</button>
-            <button [disabled]=  "produit.code === null ||
-            produit.marque === null ||
-            produit.modele === null ||
-            produit.categorie === null ||
-            produit.prixUnitaire === null ||
-            produit.quantite === null ||
-            produit.caracteristiques === null"
-            class="btn btn-primary" type="button" (click)="updateProduit()">Mettre à jour</button>
-          </div>
-    </div>
-    
-    
+          <form role="form" name="produitForm" novalidate (ngSubmit)="updateProduit()" #produitForm="ngForm">
+           
+               
+                <div class="row">
+
+                  <div class="form-group">
+                    <input type="text" class="form-control" name="id"
+                      [(ngModel)]="produit.id" hidden />
+                  </div>
+
+                  <div class="mb-3 col-md-6">
+                    <label for="code" class="form-label">Code</label>
+
+                    <input type="text" class="form-control" name="code"  
+                    placeholder="Entrer Code" #code="ngModel"
+                      [(ngModel)]="produit.code" required maxlength="20"/>
+                    <div [hidden]="!((produitForm.controls.code?.dirty 
+                            || produitForm.controls.code?.touched) 
+                            && produitForm.controls.code?.invalid)">
+                      <small class="form-text text-danger"
+                      [hidden]="!produitForm.controls.code?.errors?.required">
+                      Le champs code est obligatoire.
+                      </small>
+                      <small class="form-text text-danger"
+                      [hidden]="!produitForm.controls.code?.errors?.maxlength">
+                      Le champs code ne doit pas dépasser 20 caractères.
+                      </small>
+                    </div>
+
+                  </div>
+
+                  <div class="mb-3 col-md-6">
+                    <label for="marque" class="form-label">Marque</label>
+
+                    <input type="text" [(ngModel)]="produit.marque" class="form-control" name="marque"
+                    placeholder="Entrer Marque  Produit" required #marque="ngModel" maxlength="30">
+                    <div [hidden]="!((produitForm.controls.marque?.dirty 
+                    || produitForm.controls.marque?.touched) 
+                    && produitForm.controls.marque?.invalid)">
+                      <small class="form-text text-danger"
+                      [hidden]="!produitForm.controls.marque?.errors?.required">
+                      Le champs marque est obligatoire.
+                      </small>
+                      <small class="form-text text-danger"
+                      [hidden]="!produitForm.controls.marque?.errors?.maxlength">
+                      Le champs marque ne doit pas dépasser 30 caractères.
+                      </small>
+                    </div>
+
+                  </div>
+
+                </div>
+
+
+                <div class="row">
+
+                  <div class="mb-3 col-md-6">
+                    <label for="modele" class="form-label">Modèle</label>
+
+                    <input type="text" [(ngModel)]="produit.modele" class="form-control" name="modele"
+                          placeholder="Entrer Modèle Produit" required #modele="ngModel" maxlength="20">
+                          <div [hidden]="!((produitForm.controls.modele?.dirty 
+                          || produitForm.controls.modele?.touched) 
+                          && produitForm.controls.modele?.invalid)">
+                            <small class="form-text text-danger"
+                            [hidden]="!produitForm.controls.modele?.errors?.required">
+                            Le champs modèle est obligatoire.
+                            </small>
+                            <small class="form-text text-danger"
+                            [hidden]="!produitForm.controls.modele?.errors?.maxlength">
+                            Le champs modèle ne doit pas dépasser 20 caractères.
+                            </small>
+                          </div>
+                  </div>
+
+
+                  <div class="mb-3 col-md-6">
+                    <label class="form-control-label" for="field_categorie">Categorie</label>
+                    <select class="form-control" id="categorie" name="categorie" [(ngModel)]="produit.categorie" >
+                      <option [ngValue]="null"></option>
+                      <option [ngValue]="categ.id === produit.categorie?.id ? produit.categorie : categ" *ngFor="let categ of categories">
+                        {{categ.code}}:
+                        {{categ.libelle}}</option>
+                    </select>
+                  </div>
+
+                </div>
+
+
+                <div class="row">
+
+                  <div class="mb-3 col-md-6">
+                    <label for="prixUnitaire" class="form-label">Prix unitaire</label>
+                    <input type="number"  [(ngModel)]="produit.prixUnitaire" class="form-control" name="prixUnitaire"
+                    placeholder="Entrer Prix Produit" required #prixUnitaire="ngModel">
+                    <div [hidden]="!((produitForm.controls.prixUnitaire?.dirty 
+                          || produitForm.controls.prixUnitaire?.touched) 
+                          && produitForm.controls.prixUnitaire?.invalid)">
+                      <small class="form-text text-danger"
+                      [hidden]="!produitForm.controls.prixUnitaire?.errors?.required">
+                      Prix Unitaire est obligatoire.
+                      </small>
+                      <small class="form-text text-danger"
+                      [hidden]="!produitForm.controls.prixUnitaire?.errors?.number">
+                      Prix Unitaire doit être numérique.
+                      </small>
+                    </div>
+                  </div>
+
+                  <div class="mb-3 col-md-6">
+                    <label for="quantite" class="form-label">Quantité en stock</label>
+
+                    <input type="number" [(ngModel)]="produit.quantite" class="form-control" name="quantite"
+                    placeholder="Entrer Qté Produit" required #quantite="ngModel">
+                    <div [hidden]="!((produitForm.controls.quantite?.dirty 
+                          || produitForm.controls.quantite?.touched) 
+                          && produitForm.controls.quantite?.invalid)">
+                      <small class="form-text text-danger"
+                      [hidden]="!produitForm.controls.quantite?.errors?.required">
+                      Qté est obligatoire.
+                      </small>
+                      <small class="form-text text-danger"
+                      [hidden]="!produitForm.controls.quantite?.errors?.number">
+                      Qté doit être numérique.
+                      </small>
+                    </div>
+
+                  </div>
+
+
+                </div>
+
+                <div class="row">
+
+                  <div class="mb-3">
+                    <label for="caracteristiques" class="form-label">Caractèristiques</label>
+                    <input type="text" [(ngModel)]="produit.caracteristiques" class="form-control" name="caracteristiques"
+                    placeholder="Entrer Configuration Produit" required #caracteristiques="ngModel" maxlength="100">
+                    <div [hidden]="!((produitForm.controls.caracteristiques?.dirty 
+                    || produitForm.controls.caracteristiques?.touched) 
+                    && produitForm.controls.caracteristiques?.invalid)">
+                      <small class="form-text text-danger"
+                      [hidden]="!produitForm.controls.caracteristiques?.errors?.required">
+                      Le champs caractéristiques est obligatoire.
+                      </small>
+                      <small class="form-text text-danger"
+                      [hidden]="!produitForm.controls.caracteristiques?.errors?.maxlength">
+                      Le champs configuration ne doit pas dépasser 100 caractères.
+                      </small>
+                    </div>
+                  </div>
+
+                </div>
+
+                <hr>
+
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+
+                  <button class="btn btn-default me-md-2" type="button" (click)="annuler()">Annuler</button>
+                  <button [disabled]="produit.code === null ||
+                        produit.marque === null ||
+                        produit.modele === null ||
+                        produit.categorie === null ||
+                        produit.prixUnitaire === null ||
+                        produit.quantite === null ||
+                        produit.caracteristiques === null" class="btn btn-primary" type="submit">Mettre à
+                    jour</button>
+                </div>
+          </form>
+      </div>
+
+
 
 </div>

@@ -25,12 +25,12 @@ export class AjoutProduitComponent implements OnInit {
   }
 
   annuler(): void {
-    this.router.navigateByUrl('/inventaire');
+    this.router.navigateByUrl('/stocks');
   }
   ajouterProduit(): void {
     this.produitService.create(this.produit).subscribe(data => {
       this.produit = data.body;
-      this.router.navigateByUrl('/inventaire');
+      this.router.navigateByUrl('/stocks');
     }, error => {
       console.log(error);
     })
