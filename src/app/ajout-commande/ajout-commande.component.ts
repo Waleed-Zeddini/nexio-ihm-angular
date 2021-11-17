@@ -37,7 +37,6 @@ export class AjoutCommandeComponent implements OnInit {
     this.order.commande.date = moment();
     this.order.ligneCommande = [];
     this.order.commande.prixTotal = 0;
-    this.order.commande.clientId = 1;
     this.initClient();
     this.produitService.query().subscribe(data => {
       this.produits = data.body;
