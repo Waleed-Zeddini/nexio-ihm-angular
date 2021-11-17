@@ -37,7 +37,7 @@ export class AjoutCommandeComponent implements OnInit {
     this.order.commande.date = moment();
     this.order.ligneCommande = [];
     this.order.commande.prixTotal = 0;
-    this.order.client.id = 1; 
+   
     this.order.commande.clientId = 1;
     this.produitService.query().subscribe(data => {
       this.produits = data.body;
@@ -76,6 +76,20 @@ export class AjoutCommandeComponent implements OnInit {
     this.modeUpdate = false;
 
   }
+  initClient(){
+    this.order.client.id = 1; 
+    this.order.client.code = ""; 
+    this.order.client.codePostal = 1; 
+    this.order.client.adresse = ""; 
+    this.order.client.email = ""; 
+    this.order.client.nom = ""; 
+    this.order.client.prenom = ""; 
+    this.order.client.ville = ""; 
+    this.order.client.gsm = ""; 
+    this.order.client.tel = ""; 
+    this.order.client.fax = "";
+    this.order.client.dateNaissance  = moment();
+  }
   affecterProduit(event) {
     this.lignesTemp.produit = event
   }
@@ -90,6 +104,7 @@ export class AjoutCommandeComponent implements OnInit {
   annuler() {
     this.router.navigateByUrl('/mes-achats');
   }
+ 
   
 
 }
