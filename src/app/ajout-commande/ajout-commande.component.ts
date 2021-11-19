@@ -41,7 +41,7 @@ export class AjoutCommandeComponent implements OnInit {
     this.order.commande.prixTotal = 0;
     this.order.commande.etat = 1;
     this.getClientFromOrderService();
-    this.produitService.query().subscribe(data => {
+    this.produitService.findAll().subscribe(data => {
       this.produits = data.body;
     }, error => {
       console.log(error);
