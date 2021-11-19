@@ -38,10 +38,10 @@ export class ProduitService {
     return this.http.get<IProduit[]>(this.resourceUrl, { params: options, observe: 'response', headers: this.headers });
   }
 
-  findAll(): Observable<EntityArrayResponseType> {
-    return this.http.get<IProduit[]>(`${this.resourceUrl}/all}`, { observe: 'response', headers: this.headers });
+  public findAll(): Observable<IProduit[]> {
+    return this.http.get<IProduit[]>(`${this.resourceUrl}/all}`);
   }
-
+  
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
