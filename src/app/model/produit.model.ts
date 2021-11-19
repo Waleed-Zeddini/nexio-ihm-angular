@@ -11,6 +11,7 @@ export interface IProduit {
   quantite?: number;
   Lignes?: ILigneCommande[];
   categorie?: ICategorie;
+  categorieId?: number;
 }
 
 export class Produit implements IProduit {
@@ -23,6 +24,7 @@ export class Produit implements IProduit {
     public prixUnitaire?: number,
     public quantite?: number,
     public Lignes?: ILigneCommande[],
-    public categorie?: ICategorie
+    public categorie?: ICategorie,
+    public categorieId?: number
   ) {}
 }
