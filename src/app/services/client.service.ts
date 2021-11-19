@@ -38,6 +38,12 @@ export class ClientService {
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
+  findFist(): Observable<EntityResponseType> {
+    return this.http
+      .get<IClient>(`${this.resourceUrl}/first/`, { observe: 'response' })
+      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  }
+
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http

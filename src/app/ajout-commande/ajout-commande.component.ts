@@ -9,6 +9,7 @@ import { Client, IClient } from '../model/client.model';
 import { IProduit } from '../model/produit.model';
 import { CommandeService } from '../services/commande.service';
 import { ProduitService } from '../services/produit.service';
+import { ClientService } from '../services/client.service';
 
 @Component({
   selector: 'app-ajout-commande',
@@ -26,7 +27,7 @@ export class AjoutCommandeComponent implements OnInit {
   produits: IProduit[];
 
   
-  constructor(private commandeService: CommandeService, private produitService: ProduitService,private router: Router) { }
+  constructor(private ClientService: ClientService,private commandeService: CommandeService, private produitService: ProduitService,private router: Router) { }
 
   ngOnInit(): void {
     this.modeUpdate = false;
@@ -39,7 +40,7 @@ export class AjoutCommandeComponent implements OnInit {
     this.order.commande.clientId = 1;
     this.order.commande.prixTotal = 0;
     this.order.commande.etat = 1;
-    this.initAClient();
+    this.getClientFromOrderService();
     this.produitService.query().subscribe(data => {
       this.produits = data.body;
     }, error => {
@@ -77,19 +78,13 @@ export class AjoutCommandeComponent implements OnInit {
     this.modeUpdate = false;
 
   }
-  initAClient() {
-    this.order.client.id = 1; // just for test, getting an exited client from DB
-    this.order.client.code = ""; 
-    this.order.client.codePostal = 1; 
-    this.order.client.adresse = ""; 
-    this.order.client.email = ""; 
-    this.order.client.nom = ""; 
-    this.order.client.prenom = ""; 
-    this.order.client.ville = ""; 
-    this.order.client.gsm = ""; 
-    this.order.client.tel = ""; 
-    this.order.client.fax = "";
-    this.order.client.dateNaissance  = moment();
+  getClientFromOrderService() {
+    // just for getting an exited client from DB by invicating it from Order Micoservice
+     this.ClientService.findFist().subscribe(data => {
+      this.order.client= data.body;
+    }, error => {
+      console.log(error);
+    });
   }
   affecterProduit(event) {
     this.lignesTemp.produit = event
