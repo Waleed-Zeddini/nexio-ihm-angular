@@ -87,12 +87,13 @@
 
 
                   <div class="mb-3 col-md-6">
-                    <label class="form-control-label" for="field_categorie">Categorie</label>
-                    <select class="form-control" id="categorie" name="categorie" [(ngModel)]="produit.categorie" >
+                    <label class="form-control-label" for="field_categorie">Catégorie</label>
+                  
+                    <select class="form-control" id="categorie" name="categorie" [(ngModel)]="produit.categorieId">
                       <option [ngValue]="null"></option>
-                      <option [ngValue]="categ.id === produit.categorie?.id ? produit.categorie : categ" *ngFor="let categ of categories">
-                        {{categ.code}}:
-                        {{categ.libelle}}</option>
+                      <option *ngFor="let category of categories" [ngValue]="category.id">
+                        {{category.id}}:{{category.code}}-{{category.libelle}}
+                      </option>
                     </select>
                   </div>
 

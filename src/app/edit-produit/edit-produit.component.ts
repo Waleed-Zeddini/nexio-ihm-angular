@@ -48,8 +48,4 @@ export class EditProduitComponent implements OnInit {
     })
   }
   
-  affecterCategorie(event: any) {
-    this.produit.categorie = event;
-  }
-
 }
