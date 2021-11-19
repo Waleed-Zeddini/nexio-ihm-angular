@@ -14,17 +14,23 @@ export class ProduitsComponent implements OnInit {
   constructor(private produitService: ProduitService) { }
 
   ngOnInit(): void {
-
-  this.loadAllProduits();
-  
+    this.produitService.query().subscribe(data => {
+      this.produits = data.body;
+    })
   }
 
-  loadAllProduits() {
-    this.produitService.findAll().subscribe(data => {
-      this.produits = data;
-    }, error => {
-      console.log(error);
-    });
-}
+  /*ngOnInit(): void {
 
+    this.loadAllProduits();
+    
+    }
+  
+    loadAllProduits() {
+      this.produitService.findAll().subscribe(data => {
+        this.produits = data;
+      }, error => {
+        console.log(error);
+      });
+  }
+*/
 }

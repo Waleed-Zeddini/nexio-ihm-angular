@@ -41,16 +41,12 @@ export class AjoutCommandeComponent implements OnInit {
     this.order.commande.prixTotal = 0;
     this.order.commande.etat = 1;
     this.getClientFromOrderService();
-    this.loadAllProduits();
-  }
-
-  loadAllProduits() {
-    this.produitService.findAll().subscribe(data => {
-      this.produits = data;
+    this.produitService.query().subscribe(data => {
+      this.produits = data.body;
     }, error => {
       console.log(error);
     });
-}
+  }
   ajouterLigneCommande() {
     
     this.lignesTemp.prixTotal = this.lignesTemp.produit.prixUnitaire * this.lignesTemp.qte;
