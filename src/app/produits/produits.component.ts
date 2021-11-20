@@ -12,14 +12,14 @@ export class ProduitsComponent implements OnInit {
 
   produits : IProduit[];
   constructor(private produitService: ProduitService) { }
-
+/*
   ngOnInit(): void {
     this.produitService.query().subscribe(data => {
       this.produits = data.body;
     })
   }
-
-  /*ngOnInit(): void {
+*/
+  ngOnInit(): void {
 
     this.loadAllProduits();
     
@@ -32,5 +32,5 @@ export class ProduitsComponent implements OnInit {
         console.log(error);
       });
   }
-*/
+
 }

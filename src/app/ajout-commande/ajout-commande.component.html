@@ -25,14 +25,17 @@
         </div>
         <div class="card-body">
             <div class="row">
+                
                 <div class="col-md-6">
                     <label for="field_produit" class="form-label">Produit</label>
-                    <select [ngModel]="produits" (ngModelChange)="affecterProduit($event)" class="form-control">
-                        <option *ngFor="let p of produits" [ngValue]="p">
-                            {{p.marque}}-{{p.modele}}
-                        </option>
-                    </select>
-                  </div>
+                 <select class="form-control" id="produit" name="produit" [(ngModel)]="lignesTemp.produit">
+                    <option [ngValue]="null"></option>
+                    <option *ngFor="let produit of produits" [ngValue]="produit">
+                      {{produit.id}}:{{produit.marque}}-{{produit.modele} Prix:{{produit.prixUnitaire}}
+                    </option>
+                  </select>
+                </div>
+
                   <div class="col-md-4">
                     <label for="exampleFormControlInput2" class="form-label">Quantité</label>
                     <input [(ngModel)]="lignesTemp.qte"  type="text" class="form-control">
